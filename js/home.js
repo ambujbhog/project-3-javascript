@@ -1,3 +1,4 @@
+console.log('no');
 const storeData = [
     {
       name: "Everything I Want To Do Is Illegal Hardcover",
@@ -43,9 +44,6 @@ const storeData = [
   
   //Sorry for the long image links, can't help it.
 
-
-
-
   function feature(features){
     return `
     <h4>Features</h4>
@@ -71,4 +69,3 @@ const storeData = [
     ${storeData.map(storeTemplate).join('')}
     <p class="footer">These ${storeData.length} were added recently. Check back soon for more updates.</p>
   `
-  
