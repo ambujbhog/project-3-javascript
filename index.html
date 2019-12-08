@@ -8,14 +8,164 @@
     body {
       background-color: yellow;
     }
+    #map {
+      height: 50%;
+    }
     </style>
+    <style>
+      #block-wrp {
+        width: 784px;
+        display: flex;
+        display: -webkit-flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+      }
+      #block-wrp .block-item {
+        height: 400px;
+        width: 48%;
+        position: relative;
+        display: flex;
+        display: -webkit-flex;
+        flex-direction: column;
+        -webkit-flex-direction: column
+      }
+      #block-wrp .block-item .map-item {
+        height: 90%
+      }
+      #block-wrp .block-item span.city-name {
+        text-align: center;
+        color: #000;
+        text-transform: uppercase;
+        font-weight: bold;
+        background: #a2ccff;
+        height: 10%;
+        line-height: 2em;
+      }
+      </style>
+      <style>
+#mapCanvas {
+  width: 775px;
+  height: 500px;
+  margin: 0 auto;
+}
+#mapLegend {
+  background: #fdfdfd;
+  color: #3c4750;
+  padding: 0 10px 0 10px;
+  margin: 10px;
+  font-weight: bold;
+  filter: alpha(opacity=80);
+  opacity: 0.8;
+  border: 2px solid #000;
+}
+#mapLegend div {
+  height: 40px;
+  line-height: 25px;
+  font-size: 1.2em;
+}
+#mapLegend div img {
+  float: left;
+  margin-right: 10px;
+}
+#mapLegend h2 {
+  text-align: center
+}
+</style>
 </head>
 <body>
+
+  <h1 class="app-title">Weird Deals</h1>
+  
+  <div id="mapContainer">
+      <div id="mapCanvas"></div>
+      <div id="mapLegend">
+        <h2>LEGEND</h2>
+      </div>
+    </div>
+
     <div id="app"></div>
-    <script>
-      console.log("yes");
-      src="https://raw.githubusercontent.com/ambujbhog/project-3-javascript/master/js/home.js";
-    </script>
+    <script src="js/home.js"></script>
+    <script type="text/javascript">
+      var map;
+      var locations = [
+            {"name": "Eiffel Tower", "lat":"48.85837", "lng":"2.294481", "is_exact": true},
+            {"name": "UNESCO", "lat":"48.849560" ,"lng":"2.306326", "is_exact": true},
+            {"name": "Random 1", "lat":"48.8532774","lng":"2.2438649", "is_exact": true},
+            {"name": "Random 2", "lat":"48.8413031","lng":"2.3106412", "is_exact": true},
+            {"name": "Random 3", "lat":"48.878716","lng":"2.290306", "is_exact": true}
+         ];
+      function drawMap() {
+          var centerMap = new google.maps.LatLng(48.8583701, 2.2922873);
+          
+          var myOptions = {
+            zoom: 13,
+            center: centerMap,
+            mapTypeId: google.maps.MapTypeId.ROADMAP,
+            mapTypeControl: true,
+            fullscreenControl: false 
+           }
+          map = new google.maps.Map(document.getElementById("mapCanvas"), myOptions);
+          
+          setMarkers(locations);
+          
+          
+          /* Adding Map Legends */
+          
+          var legend = document.getElementById('mapLegend');
+          
+          div= document.createElement('div');
+          div.innerHTML = '<span>1. Everything I want to do is Illegal</span>';
+          legend.appendChild(div);
+          
+          var div = document.createElement('div');
+          div.innerHTML = '<span>2. Pimple Popper</span>';
+          legend.appendChild(div);
+
+          var div = document.createElement('div');
+          div.innerHTML = '<span>3. From Crook to Cook</span>';
+          legend.appendChild(div);
+
+          var div = document.createElement('div');
+          div.innerHTML = '<span>4. Mini Fire Shooter</span>';
+          legend.appendChild(div);
+          var div = document.createElement('div');
+          div.innerHTML = '<span>5. The Zucker Rug</span>';
+          legend.appendChild(div);
+          
+          /* Push Legend to Right Top */
+          map.controls[google.maps.ControlPosition.RIGHT_TOP].push(legend);
+          
+       }
+        function setMarkers(locations) {
+          for (i=0; i < locations.length; i++) {
+            var location = locations[i];
+            plotMarker(location)
+          }
+        }
+        
+        function plotMarker(location) {
+          
+          var markerIcon = (location.is_exact) ? 'marker_exact.png' : 'marker_approx.png';
+          var markerIcon = 'images/' + markerIcon;
+          
+          
+          var marker = new google.maps.Marker({
+                position: new google.maps.LatLng(location.lat,  location.lng),
+                icon: markerIcon,
+                title: location.name, 
+                map: map
+              });
+          }
+        
+      </script>
+
+        
+     
+     
+      
+        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAzmZ0XUg2wILTDQNUr5dlSLzDwlXen1IU&callback=drawMap"
+        type="text/javascript"></script>
+    
 
 </body>
 </html>

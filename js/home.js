@@ -1,4 +1,3 @@
-console.log('no');
 const storeData = [
     {
       name: "Everything I Want To Do Is Illegal Hardcover",
@@ -42,7 +41,6 @@ const storeData = [
     }
   ];
   
-  //Sorry for the long image links, can't help it.
 
   function feature(features){
     return `
@@ -65,7 +63,7 @@ const storeData = [
   }
   
   document.getElementById("app").innerHTML = `
-    <h1 class="app-title">Weird Products (${storeData.length} Results)</h1>
+    <h1 class="app-title">(${storeData.length} Results)</h1>
     ${storeData.map(storeTemplate).join('')}
     <p class="footer">These ${storeData.length} were added recently. Check back soon for more updates.</p>
   `
